@@ -1,0 +1,152 @@
+Git Genius Roadmap
+Updated on: 2026-04-21
+
+Current Release Status
+- Build passes: `go build ./cmd/genius`
+- Tests pass: `go test ./...`
+- Versioned release flow exists through `VERSION`, build flags, installer, and `--version`
+
+Recently Completed
+- unified branch-sync behavior into one implementation
+- replaced destructive branch switching with safe switch/create flows
+- replaced remove/add remote updates with safe remote configuration
+- removed hard-coded setup debug logging
+- added hidden token entry on Linux
+- added environment-token support through `GIT_GENIUS_GITHUB_TOKEN`
+- added Git credential-helper setup and token preloading flow
+- improved setup, Doctor, and limited-mode behavior
+- added initial automated tests for config, history, token precedence, git safety helpers, and core push behavior
+- completed Phase 1 core UX hardening work
+- fixed multi-repo switching so changing projects no longer overwrites another repo's config
+- added a Switch Project / Repo flow that can change directory, branch, and remote without full setup
+- refreshed in-app help, README, and docs
+
+Product Direction
+Git Genius should stay focused on four things:
+
+1. Safer Git flows for beginners
+2. Faster common workflows for repeat users
+3. Clearer setup, auth, and recovery guidance
+4. Stronger automation and release quality over time
+
+Core Principles
+- single source of truth for Git state and config behavior
+- safer defaults before adding more features
+- guided workflows instead of cryptic Git errors
+- docs and help text must match the actual shipped behavior
+- automation should grow without breaking the interactive beginner UX
+
+Current Product Shape
+- Daily Git Operations
+  - status
+  - pull
+  - smart pull
+  - fetch
+  - push
+- Branch / Remote
+  - switch existing branch
+  - create new branch
+  - configure remote safely
+- Stash & Undo
+  - stash save
+  - stash list
+  - stash pop
+  - undo last commit
+- Tools
+  - setup / reconfigure
+  - switch project / repo
+  - create / link GitHub repository
+  - Git auth / credential helper
+  - change project directory (limited mode / simple directory switch)
+  - Doctor
+- Help / About
+  - workflow guidance
+  - GitHub/auth explanation
+  - troubleshooting guidance
+
+Roadmap
+
+Phase 1: Core UX Hardening
+Status: completed on 2026-04-21
+
+- completed: clearer success/failure summaries after push and pull
+- completed: ahead/behind status in the context panel when cheap to compute
+- completed: explicit first-run detection for brand-new repos
+- completed: improved empty-repo handling and first-push guidance
+- completed: more actionable auth guidance directly after failed HTTPS pushes
+- completed: more tests around setup and multi-project switching
+
+Phase 2: Repo Insight
+Target: after core UX hardening
+
+- commit history viewer
+- staged and unstaged diff summaries
+- branch list with last-commit context
+- remote overview screen
+- optional unpushed-commit summary before push
+
+Phase 2.5: Multi-Repo Workflow
+Target: alongside repo insight work
+
+- project switcher should show saved repo name, branch, and remote before confirmation
+- recent-project list should prefer known Git repos over plain directories
+- optional one-screen project dashboard for branch, remote, and GitHub repo repair
+- add more automated tests for switching between multiple configured repos
+
+Phase 3: Recovery and Conflict Guidance
+Target: after repo insight
+
+- richer stash conflict guidance
+- merge/rebase conflict help screens
+- clearer undo and recovery messaging
+- optional "what changed" hints after pull or smart pull
+
+Phase 4: Automation Mode
+Target: medium term
+
+- non-interactive flags for common actions
+- environment-driven setup inputs
+- machine-readable output mode for selected commands
+- better scripting support without duplicating core logic
+
+Phase 5: Packaging and Release Quality
+Target: ongoing
+
+- release artifacts per OS/arch
+- installer smoke tests
+- uninstall smoke tests
+- stronger CI checks for formatting, build, and tests
+- reproducible versioned builds
+
+Phase 6: Documentation and Help Quality
+Target: ongoing
+
+- keep README, docs, and in-app help aligned with each release
+- add screenshots or terminal walkthroughs for major flows
+- add a migration guide when menu structure changes
+- expand troubleshooting for auth, branch mismatch, and remote repair
+
+Future Improvement Backlog
+- shell completion
+- optional commit-template suggestions
+- GitHub PR workflow helpers
+- recent-action dashboard
+- per-repo quick shortcuts based on history
+- safer remote renaming flows
+- optional diff preview before commit
+
+Quality Gates For Future Releases
+- no destructive Git behavior for normal branch/remote operations
+- setup, auth, and push flows tested end-to-end in temporary repos
+- installer, binary version, and docs aligned in the same release
+- new menu items documented in both help text and README
+- future roadmap updates must distinguish completed work from planned work
+
+Definition of Done For The Next Release
+- multi-repo project switching works without repeating setup
+- test coverage expanded for setup, project switching, and push/pull flows
+- docs updated for any changed behavior
+- release version bumped and installer verified
+
+Summary
+The foundation is now stable enough to move beyond cleanup work. The next priority is better repo insight and smoother multi-repo navigation, while keeping the app safe, predictable, and well documented.
